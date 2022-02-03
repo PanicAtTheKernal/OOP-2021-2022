@@ -1,5 +1,7 @@
 package ie.tudublin;
 
+import java.io.File;
+
 import processing.core.PApplet;
 
 public class BugZap extends PApplet {
@@ -23,24 +25,30 @@ public class BugZap extends PApplet {
         background(255);
         playerX = (float)width / 2;
         playerY = (float)height - playerWidth;
-        bugX = random(width);
-        bugY = random(height - 150);
+        bugX = random((bugWidth+10), (width-(bugWidth+10)));
+        bugY = bugWidth;
     }
     
     public void draw()
     {
         background(255);
-        if (lose == false) {
+        if (lose == false) 
+        {
             drawPlayer(playerX, playerY, playerWidth);
             drawBug(bugWidth);
+            textSize(24);
             text("Score: "+score, 400, 50);
         }
-        else {
+        else
+        {
             fill(0);
             textSize(64);
             rectMode(CENTER);
-            text("Game over\n", (height/2)-80, width/2);
-            text("score: "+score, (height), width/2);
+            text("Game over\n", (width/2)-150, (height/2)-65);
+            text("score: "+score, (width/2)-110, (height/2));
+            textSize(32);
+            text("Press y to restart", (width/2)-120, (height/2)+65);
+
         }
     }
 
@@ -56,15 +64,18 @@ public class BugZap extends PApplet {
 
     private void drawBug(float w) 
     {
-        if ((frameCount % 10) == 0) {
+        if ((frameCount % 10) == 0) 
+        {
             float tempX = bugX + random(-15, 15);  
             
-            if (tempX > (bugWidth) || tempX < (width-bugWidth)) {
+            if (tempX > (bugWidth) || tempX < (width-bugWidth)) 
+            {
                 bugX = tempX;
             }
 
             bugY += 5;
-            if (bugY > height - 150) {
+            if (bugY > height - 150) 
+            {
                 lose = true;
             }
         }
@@ -78,12 +89,14 @@ public class BugZap extends PApplet {
     private void fire() {
         fill(0);
         line(playerX, playerY, playerX, 0);
-        if (playerX > bugX-bugWidth && playerX < bugX+bugWidth) {
+        if (playerX > bugX-bugWidth && playerX < bugX+bugWidth) 
+        {
             score += 1;
             bugX = random(width);
             bugY = bugWidth;
         }
-        if ((frameCount % 30) == 0) {
+        if ((frameCount % 30) == 0) 
+        {
             fill(255);
         }
     }
@@ -94,20 +107,29 @@ public class BugZap extends PApplet {
         {
             //System.out.println("Left arrow pressed");
             if (playerX > 5.0f) {
-                playerX -= 5.0f;
+                playerX -= 8.0f;
             }
         }
         if (keyCode == RIGHT) 
         {
             //System.out.println("Right arrow pressed");
             if (playerX < width) {
-                playerX += 5.0f;
+                playerX += 8.0f;
             }
         }
         if (key == ' ') 
         {
             //System.out.println("spaced pressed");
             fire();
+        }
+        if (key == 'y')
+        {
+            if (lose == true) 
+            {
+                lose = false;
+                bugX = random(bugWidth+10, width - (bugWidth+10));
+                bugY = bugWidth;
+            }
         }
     }
 }
