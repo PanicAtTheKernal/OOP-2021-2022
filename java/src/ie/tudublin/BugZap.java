@@ -1,8 +1,7 @@
 package ie.tudublin;
 
-import java.io.File;
-
 import processing.core.PApplet;
+
 
 public class BugZap extends PApplet {
     float playerX = 0.0f;
@@ -13,6 +12,9 @@ public class BugZap extends PApplet {
     float bugWidth = 50.0f;
     int score = 0;
     boolean lose = false;
+    static final int WHITE = 255;
+    static final int BLACK = 0;
+    static final int STARAMOUNT = 100;
 
     public void settings() 
     {
@@ -22,16 +24,18 @@ public class BugZap extends PApplet {
     public void setup() 
     {
         colorMode(HSB);
-        background(255);
+        background(BLACK);
         playerX = (float)width / 2;
         playerY = (float)height - playerWidth;
         bugX = random((bugWidth+10), (width-(bugWidth+10)));
         bugY = bugWidth;
+
     }
     
     public void draw()
     {
-        background(255);
+        background(BLACK);
+
         if (lose == false) 
         {
             drawPlayer(playerX, playerY, playerWidth);
@@ -41,7 +45,7 @@ public class BugZap extends PApplet {
         }
         else
         {
-            fill(0);
+            fill(WHITE);
             textSize(64);
             rectMode(CENTER);
             text("Game over\n", (width/2)-150, (height/2)-65);
@@ -55,11 +59,11 @@ public class BugZap extends PApplet {
     private void drawPlayer(float x, float y, float w) 
     {
         float h = w/2;
-        stroke(0);
+        stroke(WHITE);
         rectMode(CENTER);
-        fill(0);
+        fill(WHITE);
         rect(x, y, w, h);
-        fill(0);
+        fill(WHITE);
     }
 
     private void drawBug(float w) 
@@ -79,25 +83,25 @@ public class BugZap extends PApplet {
                 lose = true;
             }
         }
-        stroke(0);
-        fill(0);
-        fill(0);
+        stroke(WHITE);
+        fill(WHITE);
+        fill(WHITE);
         rectMode(CENTER);
         rect(bugX, bugY, w, w);
     }
 
     private void fire() {
-        fill(0);
+        fill(WHITE);
         line(playerX, playerY, playerX, 0);
         if (playerX > bugX-bugWidth && playerX < bugX+bugWidth) 
         {
             score += 1;
-            bugX = random(width);
+            bugX = random((bugWidth+10), width-(bugWidth+10));
             bugY = bugWidth;
         }
         if ((frameCount % 30) == 0) 
         {
-            fill(255);
+            fill(BLACK);
         }
     }
 
