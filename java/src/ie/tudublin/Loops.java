@@ -10,7 +10,8 @@ public class Loops extends PApplet
 		size(500, 500);
 	}
 
-	public void setup() {
+	public void setup() 
+	{
 		colorMode(HSB);
 		
 	}
@@ -18,5 +19,6 @@ public class Loops extends PApplet
 	
 	public void draw()
 	{	
+		
 	}
 }
