@@ -9,19 +9,21 @@ public class Loops extends PApplet
 	int mode = 0;
 	//Bad pratice but temp only
 	int noOfStars = 20;
-	int[] segmentsSizes = new int[noOfStars];
-	int[] xLoc = new int[noOfStars];
-	int[] yLoc = new int[noOfStars];
-	int[] radiuses = new int[noOfStars];
+	StarsObj[] stars = new StarsObj[noOfStars];
+	// int[] segmentsSizes = new int[noOfStars];
+	// int[] xLoc = new int[noOfStars];
+	// int[] yLoc = new int[noOfStars];
+	// int[] radiuses = new int[noOfStars];
 
 	public void settings()
 	{
 		size(500, 500);
 		for (int i = 0; i < noOfStars; i++) {
-			segmentsSizes[i] = (int)random(5, 8);
-			xLoc[i] = (int)random(50, width-50);
-			yLoc[i] = (int)random(50, height-50);
-			radiuses[i] = (int)random(20, 60);
+		 	int segmentsSizes = (int)random(5, 8);
+			int xLoc = (int)random(50, width-50);
+			int yLoc = (int)random(50, height-50);
+			int radiuses = (int)random(20, 60);
+			stars[i] = new StarsObj(segmentsSizes, radiuses, xLoc, yLoc);
 		}
 	}
 
@@ -218,38 +220,51 @@ public class Loops extends PApplet
 	private void mathExerise3()
 	{
 		for (int i = 0; i < noOfStars; i++) {
-			int size = segmentsSizes[i];
-			int r = radiuses[i];
-			int x = xLoc[i];
-			int y = yLoc[i];
-			drawStars(size, r, x, y);
+			// int size = segmentsSizes[i];
+			// int r = radiuses[i];
+			// int x = xLoc[i];
+			// int y = yLoc[i];
+			// drawStars(size, r, x, y);
+			stars[i].display();
 		}
 	}
 
-	private void drawStars(int segments, int radius, int x, int y)
-	{
-		float centerX = x;
-		float centerY = y;
-		float angle = (float)360/segments;
+	class StarsObj {
+		float centerX;
+		float centerY;
+		int segments;
+		int radius;
+		float angle;
+		int colour; 
 
-		background(0);
-		stroke(0,255,255);
-		for(int i = 1; i < segments+2; i++)
-		{
-			if (i != segments+1) 
+		public StarsObj(int segments, int radius, int x, int y) {
+			centerX = x;
+			centerY = y;
+			this.radius = radius;
+			this.segments = segments;
+			angle  = (float)360/segments;
+			colour = (int)random(0, 255);
+		}
+
+		public void display() {
+			stroke(colour,255,155);
+			strokeWeight(3f);
+			for(int i = 1; i < segments+2; i++)
 			{
 				if (i != segments+1) 
 				{
-					float halfwayX = ( centerX+(radius*sin(radians(angle*i) ) ) + centerX+(radius*sin(radians(angle*(i+1) ) ) ) )/ 2;
-					float halfwayY = ( centerY+(radius*cos(radians(angle*i) ) ) + centerY+(radius*cos(radians(angle*(i+1) ) ) ) )/ 2;
+					if (i != segments+1) 
+					{
+						float halfwayX = ( centerX+(radius*sin(radians(angle*i) ) ) + centerX+(radius*sin(radians(angle*(i+1) ) ) ) )/ 2;
+						float halfwayY = ( centerY+(radius*cos(radians(angle*i) ) ) + centerY+(radius*cos(radians(angle*(i+1) ) ) ) )/ 2;
 
-					float halfHalfwayX = (halfwayX + centerX ) /2; 
-					float halfHalfwayY = (halfwayY + centerY ) /2;
+						float halfHalfwayX = (halfwayX + centerX ) /2; 
+						float halfHalfwayY = (halfwayY + centerY ) /2;
 
-
-					line(centerX+(radius*sin(radians(angle*i) ) ), centerY+(radius*cos(radians(angle*i) ) ), halfHalfwayX, halfHalfwayY );
-					line(halfHalfwayX, halfHalfwayY, centerX+(radius*sin(radians(angle*(i+1)) ) ), centerY+(radius*cos(radians(angle*(i+1)) ) ) );
-				
+						line(centerX+(radius*sin(radians(angle*i) ) ), centerY+(radius*cos(radians(angle*i) ) ), halfHalfwayX, halfHalfwayY );
+						line(halfHalfwayX, halfHalfwayY, centerX+(radius*sin(radians(angle*(i+1)) ) ), centerY+(radius*cos(radians(angle*(i+1)) ) ) );
+					
+					}
 				}
 			}
 		}
