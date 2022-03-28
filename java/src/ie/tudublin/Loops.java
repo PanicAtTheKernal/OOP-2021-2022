@@ -23,18 +23,6 @@ public class Loops extends PApplet {
 		println(mode);
 	}
 
-<<<<<<< HEAD
-	
-	public void draw()
-<<<<<<< HEAD
-	{	
-		
-=======
-	{
-		
-		switch(mode)	
-		{
-=======
 	float magicMap(float a, float b, float c, float d, float e) {
 		float output;
 		a -= b;
@@ -58,7 +46,6 @@ public class Loops extends PApplet {
 
 	public void draw() {
 		switch (mode) {
->>>>>>> 70470c93f36683d0ba9aa2d5305c41af5aa45ff8
 			case 0:
 				background(0);
 				int bars = (int) (mouseX / 20.0f);
@@ -144,6 +131,5 @@ public class Loops extends PApplet {
 				// map(-2, 10, 90, 200, 233);
 
 		}
->>>>>>> c1dcd3b3d001efcb20626a40a7855df7e74ce3f0
 	}
 }
